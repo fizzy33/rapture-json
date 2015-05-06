@@ -1,5 +1,5 @@
 object project extends ProjectSettings {
-  def scalaVersion = "2.10.4"
+  def scalaVersion = "2.11.4"
   def version = "1.1.0"
   def name = "json"
   def description = "Rapture JSON is a comprehensive library providing support for working with JSON in Scala"
@@ -8,7 +8,9 @@ object project extends ProjectSettings {
     "data" -> "1.1.0"
   )
   
-  def thirdPartyDependencies = Nil
+  def thirdPartyDependencies = Seq(
+    ("org.scala-lang.modules", "scala-parser-combinators_2.11", "1.0.2")
+  )
 
   def imports = Seq(
     "rapture.core._",

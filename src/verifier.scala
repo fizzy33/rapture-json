@@ -1,34 +1,40 @@
-/******************************************************************************************************************\
-* Rapture JSON, version 1.2.0. Copyright 2010-2015 Jon Pretty, Propensive Ltd.                                     *
-*                                                                                                                  *
-* The primary distribution site is http://rapture.io/                                                              *
-*                                                                                                                  *
-* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in complance    *
-* with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.            *
-*                                                                                                                  *
-* Unless required by applicable law or agreed to in writing, software distributed under the License is distributed *
-* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License    *
-* for the specific language governing permissions and limitations under the License.                               *
-\******************************************************************************************************************/
+/**********************************************************************************************\
+* Rapture JSON Library                                                                         *
+* Version 1.0.7                                                                                *
+*                                                                                              *
+* The primary distribution site is                                                             *
+*                                                                                              *
+*   http://rapture.io/                                                                         *
+*                                                                                              *
+* Copyright 2010-2014 Jon Pretty, Propensive Ltd.                                              *
+*                                                                                              *
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file    *
+* except in compliance with the License. You may obtain a copy of the License at               *
+*                                                                                              *
+*   http://www.apache.org/licenses/LICENSE-2.0                                                 *
+*                                                                                              *
+* Unless required by applicable law or agreed to in writing, software distributed under the    *
+* License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,    *
+* either express or implied. See the License for the specific language governing permissions   *
+* and limitations under the License.                                                           *
+\**********************************************************************************************/
 package rapture.json
 
 import rapture.data._
 
-private[json] object JsonValidator {
+object JsonVerifier {
 
-  case class ValidationException(strNo: Int, pos: Int, expected: String, found: Char)
-      extends Exception
-  
+  case class VerifierException(strNo: Int, pos: Int, expected: String, found: Char) extends Exception
   case class DuplicateKeyException(strNo: Int, pos: Int, key: String) extends Exception
 
-  def validate(parts: List[String]) = {
+  def verify(parts: List[String]) = {
     var i = 0
     var n = 0
     def s = parts(n)
     def cur = if(i >= s.length) '\u0000' else s(i)
 
-    def fail(expected: String) = throw ValidationException(n, i, expected, cur)
-    def failPosition(expected: String) = throw ValidationException(n, i, expected, cur)
+    def fail(expected: String) = throw VerifierException(n, i, expected, cur)
+    def failPosition(expected: String) = throw VerifierException(n, i, expected, cur)
     def duplicateKey(start: Int, key: String) = throw DuplicateKeyException(n, start, key)
     
     def takeWhitespace(): Unit = while(cur.isWhitespace) next()
