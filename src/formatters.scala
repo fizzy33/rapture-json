@@ -43,8 +43,8 @@ private[json] class formatters_1 {
     json match {
       case j =>
         if(ast.isString(j)) {
-          "\""+ast.getString(j).replaceAll("\\\\", "\\\\\\\\").replaceAll("\r",
-              "\\\\r").replaceAll("\n", "\\\\n").replaceAll("\"", "\\\\\"")+"\""
+          "\""+ast.getString(j).replaceAll("\\\\", "\\\\\\\\").replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n").
+              replaceAll("\t", "\\\\t").replaceAll("\"", "\\\\\"")+"\""
         } else if(ast.isBoolean(j)) {
           if(ast.getBoolean(j)) "true" else "false"
         } else if(ast.isNumber(j)) {

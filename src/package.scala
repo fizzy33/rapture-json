@@ -24,9 +24,12 @@ object `package` {
   type DataGetException = rapture.data.DataGetException
   type TypeMismatchException = rapture.data.TypeMismatchException
   type MissingValueException = rapture.data.MissingValueException
+  type JsonParseException = rapture.data.ParseException
 
   val TypeMismatchException = rapture.data.TypeMismatchException
   val MissingValueException = rapture.data.MissingValueException
+
+  val JsonParseException = rapture.data.ParseException
 
   implicit def jsonStringContext(sc: StringContext)(implicit parser: Parser[String, JsonAst]) =
     new JsonStrings(sc)
